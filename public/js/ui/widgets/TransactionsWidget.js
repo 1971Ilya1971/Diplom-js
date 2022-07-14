@@ -4,7 +4,7 @@
  * создания нового дохода или расхода
  * */
 
-class TransactionsWidget {
+ class TransactionsWidget {
   /**
    * Устанавливает полученный элемент
    * в свойство element.
@@ -12,6 +12,13 @@ class TransactionsWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
+
+    if (!element) {
+      throw new Error('Элемент не существует');
+    };
+
+    this.element = element;
+    this.registerEvents();
 
   }
   /**
@@ -21,6 +28,16 @@ class TransactionsWidget {
    * экземпляра окна
    * */
   registerEvents() {
+      const btnIncome = this.element.querySelector('.create-income-button');
+      btnIncome.addEventListener('click', (e) => {
+        e.preventDefault();
+        App.getModal('newIncome').open();
+      });
 
+      const btnExpense = this.element.querySelector('.create-expense-button');
+      btnExpense.addEventListener('click', (e) => {
+        e.preventDefault();
+        App.getModal('newExpense').open();
+      });
   }
 }
